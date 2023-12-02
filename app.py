@@ -54,6 +54,7 @@ def send_welcome(message):
 def echo_all(message):
     print("Received message")
     answer = ask_gpt(message.text)
+    bot.reply_to(message, message.text)
     bot.reply_to(message, answer)
 
 if __name__ == "__main__":
