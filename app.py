@@ -9,25 +9,9 @@ load_dotenv()
 
 #BOT_TOKEN = os.getenv('BOT_TOKEN')
 BOT_TOKEN = '6332068214:AAES3Y1-pg27u6VUDY-VehyxrpgzcEsHa90'
-OPENAI_API_KEY = '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'
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode=None)
 
 app = Flask(__name__)
-
-def ask_gpt(prompt):
-    """Send a prompt to the GPT model and return the response."""
-    headers = {
-        'Authorization': f'Bearer {OPENAI_API_KEY}',
-        'Content-Type': 'application/json'
-    }
-    data = {
-        'model': 'gpt-3.5-turbo',  # or another model name
-        'prompt': prompt,
-        'max_tokens': 150
-    }
-    response = requests.post('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', headers=headers, json=data)
-    response_json = response.json()
-    return response_json.get('choices', [{}])[0].get('text', '').strip()
 
 @app.route('/' + BOT_TOKEN, methods=['POST'])
 def getMessage():
@@ -53,9 +37,7 @@ def send_welcome(message):
 @bot.message_handler(func=lambda msg: True)
 def echo_all(message):
     print("Received message")
-    answer = ask_gpt(message.text)
     bot.reply_to(message, message.text)
-    bot.reply_to(message, answer)
 
 if __name__ == "__main__":
     app.run(debug=True)
