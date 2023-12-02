@@ -9,6 +9,7 @@ load_dotenv()
 
 #BOT_TOKEN = os.getenv('BOT_TOKEN')
 BOT_TOKEN = '6332068214:AAES3Y1-pg27u6VUDY-VehyxrpgzcEsHa90'
+OPENAI_API_KEY = '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'
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode=None)
 
 app = Flask(__name__)
